@@ -83,74 +83,70 @@
     </v-layout>
   </v-container>  
 </template>
-<script>
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-import { getMailByType } from '@/api/mail';
-export default {
-  components: {
-    VuePerfectScrollbar,
-  },
-  props: {
-    mailType: {
-      type: String,
-      default: 'All'
-    }
-  },
-  data: () => ({
-    selected: [2],
-    mailActions: [
-      {
-        href: '#',
-        title: 'Delete',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        href: 'Mark as read',
-        title: 'Mark as read',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        href: 'Spam',
-        title: 'Spam',
-        click: (e) => {
-          console.log(e);
-        }
-      }
-    ]
-  }),
-  computed: {
-    mails () {
-      return getMailByType(this.$route.params.mailType);
-    }
-  },
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import { getMailByType } from "@/api/mail";
 
-  created () {
-    this.$on('MAIL_REPLY_DIALOG_CLOSE', () => {
+@Component({
+  components: {
+    VuePerfectScrollbar
+  }
+})
+export default class List extends Vue {
+  @Prop({ default: "All" }) mailType!: string;
+  selected = [2];
+  replayDialog: boolean | null = null;
+  mailActions = [
+    {
+      href: "#",
+      title: "Delete",
+      click: (e: any) => {
+        console.log(e);
+      }
+    },
+    {
+      href: "Mark as read",
+      title: "Mark as read",
+      click: (e: any) => {
+        console.log(e);
+      }
+    },
+    {
+      href: "Spam",
+      title: "Spam",
+      click: (e: any) => {
+        console.log(e);
+      }
+    }
+  ];
+
+  get mails() {
+    return getMailByType(this.$route.params.mailType);
+  }
+
+  computeMailPath(id: string) {
+    return { path: "/mail/0/" + id };
+  }
+
+  formatDate(s: string) {
+    return new Date(s).toLocaleString();
+  }
+
+  toggle(index: number) {
+    const i = this.selected.indexOf(index);
+    if (i > -1) {
+      this.selected.splice(i, 1);
+    } else {
+      this.selected.push(index);
+    }
+  }
+
+  protected created() {
+    this.$on("MAIL_REPLY_DIALOG_CLOSE", () => {
       this.replayDialog = false;
     });
-    window.AppMail = this;
-  },
-  methods: {
-
-    computeMailPath (id) {
-      return { path: '/mail/0/' + id };
-    },    
-    formatDate (s) {
-      return new Date(s).toLocaleString();
-    },
-
-    toggle (index) {
-      const i = this.selected.indexOf(index);
-      if (i > -1) {
-        this.selected.splice(i, 1);
-      } else {
-        this.selected.push(index);
-      }
-    }
-  },
-};
+    (window as any).AppMail = this;
+  }
+}
 </script>

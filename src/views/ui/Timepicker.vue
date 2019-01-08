@@ -83,29 +83,25 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      picker: null,
-      picker2: null,
-      //
-      arrayEvents: null,
-      date1: null,
-      date2: null,
-      //
-      date: null,
-      menu: false,
-      modal: false            
-    };
-  },
-
-  methods: {
-
   }
-};
+})
+export default class Timepicker extends Vue {
+  picker = null;
+  picker2 = null;
+  //
+  arrayEvents = null;
+  date1 = null;
+  date2 = null;
+  //
+  date = null;
+  menu = false;
+  modal = false;
+}
 </script>

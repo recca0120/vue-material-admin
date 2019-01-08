@@ -46,28 +46,24 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      drawer: true,
-      miniDrawer: false,
-      items: [
-        { title: 'Home', icon: 'dashboard' },
-        { title: 'About', icon: 'question_answer' }
-      ],
-      right: null      
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class NavigationDrawers extends Vue {
+  drawer = true;
+  miniDrawer = false;
+  items = [
+    { title: "Home", icon: "dashboard" },
+    { title: "About", icon: "question_answer" }
+  ];
+  right = null;
+}
 </script>
 
 <style lang="stylus">

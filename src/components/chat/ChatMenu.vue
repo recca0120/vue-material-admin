@@ -18,15 +18,13 @@
 </div>
 </template>
 
-<script>
-export default {
-  props: {
-    items: {
-      type: Array,
-    }
-  },
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
 
-};
+@Component
+export default class ChatMenu extends Vue {
+  @Prop() items!: any[];
+}
 </script>
 
 <style lang="stylus">

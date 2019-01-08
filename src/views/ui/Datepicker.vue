@@ -107,40 +107,40 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      picker: null,
-      picker2: null,
-      //
-      arrayEvents: null,
-      date1: null,
-      date2: null,
-      //
-      date: null,
-      menu: false,
-      modal: false            
-    };
-  },
-  mounted () {
+  }
+})
+export default class Datepicker extends Vue {
+  picker = null;
+  picker2 = null;
+  //
+  arrayEvents: any[] | null = null;
+  date1 = null;
+  date2 = null;
+  //
+  date = null;
+  menu = false;
+  modal = false;
+
+  functionEvents(date: string) {
+    const [, , day] = date.split("-");
+
+    return parseInt(day, 10) % 3 === 0;
+  }
+
+  protected mounted() {
     this.arrayEvents = [...Array(6)].map(() => {
       const day = Math.floor(Math.random() * 30);
       const d = new Date();
       d.setDate(day);
       return d.toISOString().substr(0, 10);
     });
-  },
-
-  methods: {
-    functionEvents (date) {
-      const [,, day] = date.split('-');
-      return parseInt(day, 10) % 3 === 0;
-    }
   }
-};
+}
 </script>

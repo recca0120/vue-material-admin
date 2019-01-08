@@ -63,7 +63,7 @@
                 <v-tab-item
                   v-for="i in 3"
                   :key="i"
-                  :id="'tab-' + i"
+                  :value="'tab-' + i"
                 >
                   <v-card flat>
                     <v-card-text>{{ text }}</v-card-text>
@@ -139,7 +139,7 @@
                 <v-tab-item
                   v-for="i in 3"
                   :key="i"
-                  :id="'mobile-tabs-5-' + i"
+                  :value="'mobile-tabs-5-' + i"
                 >
                   <v-card>
                     <v-card-text>{{ text }}</v-card-text>
@@ -154,29 +154,26 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      items: ['Item One', 'Item Seventeen', 'Item Five'],
-      tab: null,      
-      tabs: null,
-      more: [
-        'News', 'Maps', 'Books', 'Flights', 'Apps'
-      ],      
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'      
-    };
-  },
-  computed: {
-  },  
-  methods: {
-    handleClick (e) {
-      e.preventDefault();
-    }
   }
-};
+})
+export default class Tabs extends Vue {
+  items = ["Item One", "Item Seventeen", "Item Five"];
+  tab = null;
+  tabs = null;
+  more = ["News", "Maps", "Books", "Flights", "Apps"];
+  text =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
+  handleClick(e: Event) {
+    e.preventDefault();
+  }
+}
 </script>

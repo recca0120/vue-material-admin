@@ -100,17 +100,17 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    toggle_exclusive: 2,
-    title: 'Hi,\nI just wanted to check in and see if you had any plans the upcoming weekend. We are thinking of heading up to Napa', 
-    
-  }),
-  methods: {
-    handleClose (e) {
-      window.AppMail.$emit('MAIL_REPLY_DIALOG_CLOSE');
-    }
-  },
-};
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+class EmailReply extends Vue {
+  toggle_exclusive = 2;
+  title =
+    "Hi,\nI just wanted to check in and see if you had any plans the upcoming weekend. We are thinking of heading up to Napa";
+
+  handleClose(e: any) {
+    (window as any).AppMail.$emit("MAIL_REPLY_DIALOG_CLOSE");
+  }
+}
 </script>

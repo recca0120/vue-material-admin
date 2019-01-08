@@ -16,23 +16,19 @@
   </v-card>   
 </template>
 
-<script>
-export default {
-  props: {
-    icon: String,
-    title: String,
-    subTitle: String,
-    value: Number,
-    color: String
-  },
-  computed: {
-    caption () {
-      return this.value + '% ' + this.subTitle;
-    }
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+@Component
+export default class LinearStatistic extends Vue {
+  @Prop() icon!: string;
+  @Prop() title!: string;
+  @Prop() subTitle!: string;
+  @Prop() value!: number;
+  @Prop() color!: string;
+
+  get caption() {
+    return this.value + "% " + this.subTitle;
   }
-};
+}
 </script>
-
-<style>
-
-</style>

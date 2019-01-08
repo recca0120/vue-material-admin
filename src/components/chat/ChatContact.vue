@@ -22,28 +22,28 @@
       </template>
     </v-container>
 </template>
-<script>
-import ChatContactList from './ChatContactList';
-import ChatContactProfile from './ChatContactProfile';
-export default {
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import ChatContactList from "./ChatContactList.vue";
+import ChatContactProfile from "./ChatContactProfile.vue";
+
+@Component({
   components: {
     ChatContactList,
     ChatContactProfile
-  },
-  data () {
-    return {
-      chat: null,
-      selectedTab: null,
-    };
-  },
-  computed: {
-    showSidebar () {
-      return this.$route.params.uuid === undefined;
-    },
-    showWindow () {
-      return this.$route.params.uuid !== undefined;
-    },    
-  },
-};
-</script>
+  }
+})
+export default class ChatContact extends Vue {
+  chat: string | null = null;
+  selectedTab: string | null = null;
 
+  get showSidebar() {
+    return this.$route.params.uuid === undefined;
+  }
+
+  get showWindow() {
+    return this.$route.params.uuid !== undefined;
+  }
+}
+</script>

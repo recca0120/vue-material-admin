@@ -28,21 +28,16 @@
       </v-card-actions>
     </v-card>     
 </template>
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-<script>
-export default {
-  props: {
-    icon: String,
-    title: String,
-    subTitle: String,
-    caption: String,
-    value: Number,
-    color: String
-  },
-
-};
+@Component
+export default class CircleStatistic extends Vue {
+  @Prop() icon!: string;
+  @Prop() title!: string;
+  @Prop() subTitle!: string;
+  @Prop() caption!: string;
+  @Prop() value!: number;
+  @Prop() color!: string;
+}
 </script>
-
-<style>
-
-</style>

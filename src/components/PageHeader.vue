@@ -3,7 +3,7 @@
     <div class="page-header-left">
       <h3 class="pr-3">{{title}}</h3>
     </div>
-    <v-breadcrumbs divider="-" :items="breadcrumbs">
+    <v-breadcrumbs divider="-" :items="breadcurmbs">
 
     </v-breadcrumbs>
     <v-spacer></v-spacer>
@@ -15,36 +15,40 @@
   </v-layout>  
 </template>
 
-<script>
-import menu from '@/api/menu';
-export default {
-  data () {
-    return {
-      title: ''
-    };
-  },
-  computed: {
-    breadcrumbs: function () {
-      let breadcrumbs = [];
-      menu.forEach(item => {
-        if (item.items) {
-          let child =  item.items.find(i => {
-            return i.component === this.$route.name;
-          });
-          if (child) {
-            breadcrumbs.push(item.title);
-            breadcrumbs.push(child.title);
-            this.title = child.title;
-          }
-        } else {
-          if (item.name === this.$route.name) {
-            this.title = item.title;
-            breadcrumbs.push(item.title);
-          }
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+import menu from "@/api/menu";
+
+@Component({})
+export default class PageHeader extends Vue {
+  title = "";
+
+  get breadcurmbs() {
+    let breadcrumbs: any[] = [
+      {
+        tag: "v-icon",
+        text: "home"
+      }
+    ];
+    menu.forEach(item => {
+      if (item.items) {
+        let child = (item.items as any).find((i: any) => {
+          return i.component === this.$route.name;
+        }) as any;
+        if (child) {
+          breadcrumbs.push({ text: item.title });
+          breadcrumbs.push({ text: child.title, disabled: true });
+          this.title = child.title;
         }
-      });
-      return breadcrumbs;
-    },    
+      } else {
+        if (item.name === this.$route.name) {
+          this.title = item.title as string;
+          breadcrumbs.push({ text: item.title });
+        }
+      }
+    });
+
+    return breadcrumbs;
   }
-};
+}
 </script>

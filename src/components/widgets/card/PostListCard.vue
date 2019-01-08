@@ -54,31 +54,32 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  props: {
-    items: { type: [Array, Object] },
-  },
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
 
-  methods: {
-    handleThumb () {
-      // implement your own method here
-    },
-    handleComment () {
-      // implement your own method here
-    },
-    handleFavorite () {
-      // implement your own method here
-    },
+@Component({})
+export default class PostListCard extends Vue {
+  @Prop() items!: any | any[];
+
+  handleThumb() {
+    // implement your own method here
   }
-};
+
+  handleComment() {
+    // implement your own method here
+  }
+
+  handleFavorite() {
+    // implement your own method here
+  }
+}
 </script>
 
 <style scoped>
 .ft-200 {
   font-weight: 200;
 }
-.post--item:hover{
+.post--item:hover {
   background: #f6f6f6;
 }
 .post--item a {
@@ -87,7 +88,7 @@ export default {
 .flex-list.vertical {
   flex-direction: column;
 }
-.flex-list li{
+.flex-list li {
   display: flex;
   padding: 15px 0;
   border-bottom: 1px solid #eee;
@@ -104,7 +105,6 @@ export default {
 
 .image-scale:hover {
   transform: scale(1.05);
-  transition: 0.7s; 
+  transition: 0.7s;
 }
-
 </style>

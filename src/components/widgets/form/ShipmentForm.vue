@@ -39,7 +39,7 @@
         :error-messages="errors.collect('country')"           
         v-model="formModel.country"
         label="Country"
-        auto
+        menu-props="auto"
         required
         item-text="country"
         item-value="abbr"
@@ -51,7 +51,7 @@
         :error-messages="errors.collect('state')"           
         v-model="formModel.state"
         label="State"
-        auto
+        menu-props="auto"
         required
         item-text="name"
         item-value="id"
@@ -64,7 +64,7 @@
         v-model="formModel.city"
         label="City"
         required
-        auto
+        menu-props="auto"
         item-text="name"
         item-value="id"
       ></v-select>
@@ -89,42 +89,44 @@
   </v-form>
 </template>
 
-<script>
-import Countries from '@/api/country';
-export default {
-  $_veeValidate: {
-    validator: 'new'
-  },    
-  data: () => ({
-    formModel: {
-      country: null,
-    },
-    countries: Countries,
-    states: [
-      { name: 'Florida', abbr: 'FL', id: 1, country_id: 1 },
-      { name: 'Georgia', abbr: 'GA', id: 2, country_id: 1 },
-      { name: 'Nebraska', abbr: 'NE', id: 3, country_id: 1 },
-      { name: 'California', abbr: 'CA', id: 4, country_id: 1 },
-    ],    
-    cities: [
-      { name: 'New York', abbr: 'NY', id: 1, country_id: 1 },
-      { name: 'Tample', abbr: 'TA', id: 2, country_id: 1 },
-      { name: 'San Francisco', abbr: 'SF', id: 3, country_id: 1 },
-    ],    
-    valid: true,
+<script lang="ts">
+import Countries from "@/api/country";
+import { Component, Vue } from "vue-property-decorator";
 
-  }),
-  mounted () {
-    this.$validator.localize('en', this.dictionary);
-  },  
-  methods: {
-    submit () {
-      this.$validator.validateAll();
-    },
-    clear () {
-      this.formModel = {};
-      this.$validator.reset();
-    }    
+@Component
+export default class ShipmentForm extends Vue {
+  $_veeValidate = {
+    validator: "new"
+  };
+  formModel: any = {
+    country: null
+  };
+  countries = Countries;
+  states = [
+    { name: "Florida", abbr: "FL", id: 1, country_id: 1 },
+    { name: "Georgia", abbr: "GA", id: 2, country_id: 1 },
+    { name: "Nebraska", abbr: "NE", id: 3, country_id: 1 },
+    { name: "California", abbr: "CA", id: 4, country_id: 1 }
+  ];
+  cities = [
+    { name: "New York", abbr: "NY", id: 1, country_id: 1 },
+    { name: "Tample", abbr: "TA", id: 2, country_id: 1 },
+    { name: "San Francisco", abbr: "SF", id: 3, country_id: 1 }
+  ];
+  valid = true;
+  dictionary = {};
+
+  submit() {
+    this.$validator.validateAll();
   }
-};
+
+  clear() {
+    this.formModel = {};
+    this.$validator.reset();
+  }
+
+  protected mounted() {
+    this.$validator.localize("en", this.dictionary);
+  }
+}
 </script>

@@ -14,30 +14,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'v-widget',
-  props: {
-    title: {
-      type: String,
-    },
-    enableHeader: {
-      type: Boolean,
-      default: true
-    },
-    contentBg: {
-      type: String,
-      default: 'white'
-    }
-  },
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-  data () {
-    return {
-
-    };
-  },
-  computed: {
-
-  },  
-};
+@Component({})
+export default class VWidget extends Vue {
+  @Prop() title!: string;
+  @Prop({ default: true })
+  enableHeader!: boolean;
+  @Prop({ default: "white" })
+  contentBg!: string;
+}
 </script>

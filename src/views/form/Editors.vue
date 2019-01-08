@@ -18,30 +18,24 @@
   </div>
 </template>
 
-<script>
-import 'quill/dist/quill.core.css';
-import 'quill/dist/quill.snow.css';
-import 'quill/dist/quill.bubble.css';
-import { quillEditor } from 'vue-quill-editor';
-export default {
+<script lang="ts">
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
+import { quillEditor } from "vue-quill-editor";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     quillEditor
-  },
-  data () {
-    return {
-      content: 'Compose Epic Story...',
-      editorOption: {
-
-      }
-    };
-  },
-  computed: {
-  },  
-
-  methods: {
   }
-};
+})
+export default class BasicForms extends Vue {
+  content = "Compose Epic Story...";
+  editorOption: any = {};
+}
 </script>
+
 <style lang="stylus" scoped>
   .quill
     height : 520px

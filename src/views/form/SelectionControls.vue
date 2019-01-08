@@ -189,37 +189,32 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      includeFiles: false,
-      enabled: false,
-      checkbox1: false,
-      checkbox2: false,
-      checkbox3: false,
-      checkbox4: false,
-      checkbox5: false,
-      radio1: false,
-      radio2: false,
-      radio3: false,
-      radio4: false,
-      radio5: false,
-      s1: false,
-      s2: false,
-      ex7: 'red',
-      ex8: 'primary',      
-      colors: ['red', 'indigo', 'orange', 'primary']      
-
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class SelectionControls extends Vue {
+  includeFiles = false;
+  enabled = false;
+  checkbox1 = false;
+  checkbox2 = false;
+  checkbox3 = false;
+  checkbox4 = false;
+  checkbox5 = false;
+  radio1 = false;
+  radio2 = false;
+  radio3 = false;
+  radio4 = false;
+  radio5 = false;
+  s1 = false;
+  s2 = false;
+  ex7 = "red";
+  ex8 = "primary";
+  colors = ["red", "indigo", "orange", "primary"];
+}
 </script>

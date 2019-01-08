@@ -29,17 +29,16 @@
   </v-card>
 </template>
 
-<script>
-import notes from '@/api/notification';
-export default {
-  data: () => ({
-    items: notes
-  }),
-  methods: {
-    handleClick: (e) => {
-      console.log(e);
-    }
-  },
+<script lang="ts">
+import notes from "@/api/notification";
+import { Component, Vue } from "vue-property-decorator";
 
-};
+@Component({})
+export default class NotificationList extends Vue {
+  items = notes;
+
+  handleClick(e: Event) {
+    console.log(e);
+  }
+}
 </script>

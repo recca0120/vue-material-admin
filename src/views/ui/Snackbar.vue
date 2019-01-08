@@ -68,26 +68,22 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      snackbar: false,
-      y: 'top',
-      x: null,
-      mode: '',
-      timeout: 6000,
-      color: '',
-      text: 'Hello, I\'m a snackbar'      
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class Snackbar extends Vue {
+  snackbar = false;
+  y = "top";
+  x = null;
+  mode = "";
+  timeout = 6000;
+  color = "";
+  text = "Hello; I'm a snackbar";
+}
 </script>

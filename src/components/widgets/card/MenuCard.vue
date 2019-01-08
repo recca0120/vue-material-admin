@@ -34,65 +34,52 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class MenuCard extends Vue {
+  items = [
+    {
+      action: "local_activity",
+      title: "Attractions",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "restaurant",
+      title: "Dining",
+      active: true,
       items: [
-        {
-          action: 'local_activity',
-          title: 'Attractions',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'restaurant',
-          title: 'Dining',
-          active: true,
-          items: [
-            { title: 'Breakfast & brunch' },
-            { title: 'New American' },
-            { title: 'Sushi' }
-          ]
-        },
-        {
-          action: 'school',
-          title: 'Education',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'directions_run',
-          title: 'Family',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'healing',
-          title: 'Health',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'content_cut',
-          title: 'Office',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'local_offer',
-          title: 'Promotions',
-          items: [
-            { title: 'List Item' }
-          ]
-        }
+        { title: "Breakfast & brunch" },
+        { title: "New American" },
+        { title: "Sushi" }
       ]
-    };
-  }
-};
+    },
+    {
+      action: "school",
+      title: "Education",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "directions_run",
+      title: "Family",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "healing",
+      title: "Health",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "content_cut",
+      title: "Office",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "local_offer",
+      title: "Promotions",
+      items: [{ title: "List Item" }]
+    }
+  ];
+}
 </script>

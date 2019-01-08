@@ -29,41 +29,38 @@
   </v-card>
 </template>
 
-<script>
-import items from '@/api/order';
-export default {
-  data () {
-    return {
-      headers: [
-        {
-          text: '#',
-          align: 'left',
-          sortable: false,
-          value: 'id'
-        },
-        { text: 'Product', value: 'deadline' },
-        { text: 'Price', value: 'progress' },
-        { text: 'Status', value: 'status' },
+<script lang="ts">
+import items from "@/api/order";
+import { Component, Vue } from "vue-property-decorator";
 
-      ],
-      items: items,
-      colors: {
-        processing: 'blue',
-        sent: 'red',
-        delivered: 'green'
-      }
-    };
-  },
-  computed: {
-    randomColor () {
-      let item = Math.floor(Math.random() * this.colors.length);
-      return this.colors[item];
+@Component
+export default class PlainTableOrder extends Vue {
+  headers = [
+    {
+      text: "#",
+      align: "left",
+      sortable: false,
+      value: "id"
     },
-  },
-  methods: {
-    getColorByStatus (status) {
-      return this.colors[status];
-    },
+    { text: "Product", value: "deadline" },
+    { text: "Price", value: "progress" },
+    { text: "Status", value: "status" }
+  ];
+  items = items;
+  colors: any = {
+    processing: "blue",
+    sent: "red",
+    delivered: "green"
+  };
+
+  get randomColor() {
+    const keys = Object.keys(this.colors);
+    let item = keys[Math.floor(Math.random() * keys.length)];
+    return this.colors[item];
   }
-};
+
+  getColorByStatus(status: string) {
+    return this.colors[status];
+  }
+}
 </script>

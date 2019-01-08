@@ -77,21 +77,17 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      gradient: 'to top, #7B1FA2, #E1BEE7',
-      gradient2: 'to top right, rgba(63,81,181, .7), rgba(25,32,72, .7)'
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class Jumbotrons extends Vue {
+  gradient = "to top: #7B1FA2, #E1BEE7";
+  gradient2 = "to top right, rgba(63,81,181, .7), rgba(25,32,72, .7)";
+}
 </script>

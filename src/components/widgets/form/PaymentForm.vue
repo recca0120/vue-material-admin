@@ -18,7 +18,7 @@
         :items="cardTypes"
         v-model="form.cardTypeId"
         label="Card Type"
-        auto
+        menu-props="auto"
         required
         item-text="name"
         item-value="id"
@@ -76,46 +76,47 @@
   </v-form>
 </template>
 
-<script>
-export default {
-  $_veeValidate: {
-    validator: 'new'
-  },  
-  data: () => ({
-    saveCard: true,
-    cardTypes: [
-      {
-        id: 1,
-        name: 'Visa Express'
-      },
-      {
-        id: 2,
-        name: 'Mastard'
-      }
-    ],
-    valid: true,
-    form: {
-      cardNumber: '5105105105105100',
-      cardName: 'Mcihael Wang',
-      cardTypeId: 1,
-      expireDate: '2018-04-09',
-    }
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
-  }),
-  mounted () {
-    this.$validator.localize('en', this.dictionary);
-  },
-  
-  methods: {
-    submit () {
-      this.$validator.validateAll();
+@Component
+export default class PaymentForm extends Vue {
+  $_veeValidate = {
+    validator: "new"
+  };
+  saveCard = true;
+  cardTypes = [
+    {
+      id: 1,
+      name: "Visa Express"
     },
-    clear () {
-      this.form = {};
-      this.$validator.reset();
+    {
+      id: 2,
+      name: "Mastard"
     }
+  ];
+  valid = true;
+  form: any = {
+    cardNumber: "5105105105105100",
+    cardName: "Mcihael Wang",
+    cardTypeId: 1,
+    expireDate: "2018-04-09"
+  };
+  dictionary = {};
+
+  submit() {
+    this.$validator.validateAll();
   }
-};
+
+  clear() {
+    this.form = {};
+    this.$validator.reset();
+  }
+
+  protected mounted() {
+    this.$validator.localize("en", this.dictionary);
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

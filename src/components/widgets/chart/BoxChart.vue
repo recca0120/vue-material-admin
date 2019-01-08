@@ -18,107 +18,109 @@
   </v-card>    
 </template>
 
-<script>
-import EChart from '@/components/chart/echart';
-import Material from 'vuetify/es5/util/colors';
 
-export default {
+<script lang="ts">
+import ECharts from "echarts";
+import EChart from "@/components/chart/echart";
+import Material from "vuetify/es5/util/colors";
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component({
   components: {
     EChart
-  },
-  props: {
-    title: String,
-    gradient: {
-      type: Boolean,
-      default: false,
-    },
-    subTitle: String,
-    icon: String,
-    cardColor: {
-      type: String,
-      default: 'white'
-    },
-    iconColor: {
-      type: String,
-      default: 'success',
-    },
-    type: String,
-    chartColor: Array,
-    data: Array,
-  },
-  data () {
-    return {
-      defaultOption: [
-        ['dataset.source', this.data],
-        ['xAxis.show', false],
-        ['yAxis.show', false],
-        ['grid.top', '15%'],
-        ['grid.left', '0'],
-        ['grid.bottom', '0'],
-        ['grid.right', '0'],        
-        ['color', this.chartColor],
-      ]
-    };
-  },
+  }
+})
+export default class BoxChart extends Vue {
+  @Prop() title!: string;
+  @Prop({ default: false })
+  gradient!: boolean;
+  @Prop() subTitle!: string;
+  @Prop() icon!: string;
+  @Prop({ default: "white" })
+  cardColor!: string;
+  @Prop({ default: "success" })
+  iconColor!: string;
+  @Prop() type!: string;
+  @Prop() chartColor!: string[];
+  @Prop() data!: any[];
 
-  computed: {
-    computeCardDark () {
-      return this.cardColor !== 'white';  
-    },
-    computeChartOption () {
-      switch (this.type) {
-        case 'bar':
-          this.defaultOption.push(['series[0].type', 'bar']);
-          this.defaultOption.push(['series[0].barWidth', '50%']);
-          // add shadow series
-          // this.defaultOption.push(['series[1].type', 'bar']);
-          break;
-        case 'stack-bar':
-          // set stacked bar
-          // this.defaultOption.push(['series[0].data', StackBarData]);
-          this.defaultOption.push(['series[0].type', 'bar']);
-          this.defaultOption.push(['series[0].itemStyle.normar.color', 'rgba(0,0,0,0.05)']);
-          this.defaultOption.push(['series[0].barGap', '-100%']);
-          // set main series
-          // this.defaultOption.push(['series[1].data', StackData]);
-          this.defaultOption.push(['series[1].type', 'bar']);
-          break;  
-        case 'area':
-          this.defaultOption.push(['series[0].type', 'line']);
-          this.defaultOption.push(['series[0].smooth', true]);
-          this.defaultOption.push(['xAxis.boundaryGap', false]);          
-          this.defaultOption.push(['series[0].areaStyle', {}]); 
-          if (this.gradient) {
-            this.defaultOption.push(['series[0].areaStyle', {
-              normal: {
-                color: new window.echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: this.chartColor[0],
-                  }, 
-                  {
-                    offset: 1,
-                    color: this.chartColor[1],
-                  }
-                ])
-              }            
-            }]);
-          }
+  defaultOption = [
+    ["dataset.source", this.data],
+    ["xAxis.show", false],
+    ["yAxis.show", false],
+    ["grid.top", "15%"],
+    ["grid.left", "0"],
+    ["grid.bottom", "0"],
+    ["grid.right", "0"],
+    ["color", this.chartColor]
+  ] as any;
 
-          break;
-        default:
-          // line
-          this.defaultOption.push(['series[0].smooth', true]);
-          this.defaultOption.push(['xAxis.boundaryGap', false]);
-          break;
-      }
-      return this.defaultOption;
-    }
+  get computeCardDark() {
+    return this.cardColor !== "white";
   }
 
-};
+  get computeChartOption() {
+    switch (this.type) {
+      case "bar":
+        this.defaultOption.push(["series[0].type", "bar"]);
+        this.defaultOption.push(["series[0].barWidth", "50%"]);
+        // add shadow series
+        // this.defaultOption.push(['series[1].type', 'bar']);
+        break;
+      case "stack-bar":
+        // set stacked bar
+        // this.defaultOption.push(['series[0].data', StackBarData]);
+        this.defaultOption.push(["series[0].type", "bar"]);
+        this.defaultOption.push([
+          "series[0].itemStyle.normar.color",
+          "rgba(0,0,0,0.05)"
+        ]);
+        this.defaultOption.push(["series[0].barGap", "-100%"]);
+        // set main series
+        // this.defaultOption.push(['series[1].data', StackData]);
+        this.defaultOption.push(["series[1].type", "bar"]);
+        break;
+      case "area":
+        this.defaultOption.push(["series[0].type", "line"]);
+        this.defaultOption.push(["series[0].smooth", true]);
+        this.defaultOption.push(["xAxis.boundaryGap", false]);
+        this.defaultOption.push(["series[0].areaStyle", {}]);
+        if (this.gradient) {
+          this.defaultOption.push([
+            "series[0].areaStyle",
+            {
+              normal: {
+                color: new ECharts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: this.getChartColor(0)
+                  },
+                  {
+                    offset: 1,
+                    color: this.getChartColor(1)
+                  }
+                ])
+              }
+            }
+          ]);
+        }
+
+        break;
+      default:
+        // line
+        this.defaultOption.push(["series[0].smooth", true]);
+        this.defaultOption.push(["xAxis.boundaryGap", false]);
+        break;
+    }
+    return this.defaultOption;
+  }
+
+  private getChartColor(index: number) {
+    if (!this.chartColor) {
+      return "";
+    }
+
+    return this.chartColor[index];
+  }
+}
 </script>
-
-<style>
-
-</style>

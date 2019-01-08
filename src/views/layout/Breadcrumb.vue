@@ -39,18 +39,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    source: String,
-  },
-  data () {
-    return {
-      alert: true
-    };
-  },
-  created () {
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component
+export default class Breadcrumb extends Vue {
+  @Prop() source!: string;
+
+  alert = true;
+
+  protected created() {
     console.log(this.$route);
   }
-};
+}
 </script>

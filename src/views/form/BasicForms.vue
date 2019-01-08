@@ -32,27 +32,22 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-import EventForm from '@/components/widgets/form/EventForm';
-import ContactForm from '@/components/widgets/form/ContactForm';
-import PaymentForm from '@/components/widgets/form/PaymentForm';
-import ShipmentForm from '@/components/widgets/form/ShipmentForm';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import EventForm from "@/components/widgets/form/EventForm.vue";
+import ContactForm from "@/components/widgets/form/ContactForm.vue";
+import PaymentForm from "@/components/widgets/form/PaymentForm.vue";
+import ShipmentForm from "@/components/widgets/form/ShipmentForm.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget,
     ContactForm,
     PaymentForm,
     ShipmentForm,
     EventForm
-  },
-  data () {
-    return {
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class BasicForms extends Vue {}
 </script>

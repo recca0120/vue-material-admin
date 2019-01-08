@@ -1,5 +1,5 @@
 .DS_Store
-node_modules/
+node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn.lock
@@ -9,6 +9,19 @@ yarn-error.log*
 selenium-debug.log
 node_modules
 release
+/dist
+
+/tests/e2e/videos/
+/tests/e2e/screenshots/
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Editor directories and files
 .idea
@@ -17,3 +30,4 @@ release
 *.ntvs*
 *.njsproj
 *.sln
+*.sw*

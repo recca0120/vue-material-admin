@@ -69,26 +69,22 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      sheet: false,
-      tiles: [
-        { img: 'keep.png', title: 'Keep' },
-        { img: 'inbox.png', title: 'Inbox' },
-        { img: 'hangouts.png', title: 'Hangouts' },
-        { img: 'google.png', title: 'Google+' }
-      ]      
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class BottomSheets extends Vue {
+  sheet = false;
+  tiles = [
+    { img: "keep.png", title: "Keep" },
+    { img: "inbox.png", title: "Inbox" },
+    { img: "hangouts.png", title: "Hangouts" },
+    { img: "google.png", title: "Google+" }
+  ];
+}
 </script>

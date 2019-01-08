@@ -113,21 +113,16 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class Toolbar extends Vue {}
 </script>
 
 <style lang="css" scoped>

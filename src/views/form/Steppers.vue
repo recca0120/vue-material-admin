@@ -70,21 +70,12 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
-  components: {
-    VWidget
-  },
-  data () {
-    return {
-      step: 1,
-      e13: 1,
-    };
-  },
-  computed: {
-  },  
-  methods: {
-  }
-};
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class Steppers extends Vue {
+  step = 1;
+  e13 = 1;
+}
 </script>

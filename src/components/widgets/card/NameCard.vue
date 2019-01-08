@@ -1,7 +1,7 @@
 <template>
 <div class="name-card">
   <v-card :color="color" ref="card" :dark="dark" :img="cardBgImage">
-    <v-card-media v-if="showTopNav">
+    <v-img v-if="showTopNav">
       <v-layout row justify-space-between class="ma-0">
         <v-flex xs2>
           <v-icon color="pink">favorite</v-icon>
@@ -10,7 +10,7 @@
           <v-icon>more_vert</v-icon>
         </v-flex>
       </v-layout>
-    </v-card-media>    
+    </v-img>    
     <v-card-text>
       <div class="layout ma-0 align-center" :class="computeCardLayout">
         <v-avatar :size="computeAvatarSize" color="primary">
@@ -41,78 +41,45 @@
 </div>
 </template>
 
-<script>
-export default {
-  props: {
-    name: {
-      type: String,
-      default: ''
-    },
-    avatar: {
-      type: Object,
-      default: null
-    },
-    jobTitle: {
-      type: String,
-      default: ''
-    },
-    cardBgImage: {
-      type: String,
-    },
-    color: {
-      type: String,
-      default: ''
-    },
-    dark: {
-      type: Boolean,
-      default: false
-    },
-    bottomNav: {
-      type: Boolean,
-      default: false
-    },    
-    topNav: {
-      type: Boolean,
-      default: false
-    },      
-    mini: {
-      type: Boolean,
-      default: false
-    }    
-  },
-  data: () => ({
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-  }),
-  
-  computed: {
-    computeCardLayout () {
-      return (this.mini) ? 'row' : 'column';
-    },
-    computeTextAlgin () {
-      return (this.mini) ? 'text-sm-right' : 'text-sm-center';
-    },
-    computeAvatarSize () {
-      return (this.mini) ? '48' : '96';
-    },
-    showAvatar () {
-      return this.avatar !== null && this.avatar.src;
-    },
+@Component
+export default class MameCard extends Vue {
+  @Prop({ default: "" }) name!: string;
+  @Prop({ default: null }) avatar!: any | null;
+  @Prop({ default: "" }) jobTitle!: string;
+  @Prop() cardBgImage!: string;
+  @Prop({ default: "" }) color!: string;
+  @Prop({ default: false }) dark!: boolean;
+  @Prop({ default: false }) bottomNav!: boolean;
+  @Prop({ default: false }) topNav!: boolean;
+  @Prop({ default: false }) mini!: boolean;
 
-    showBottomNav () {
-      return (this.mini === false && this.bottomNav); 
-    },
+  computeCardLayout() {
+    return this.mini ? "row" : "column";
+  }
 
-    showTopNav () {
-      return (this.mini === false && this.topNav); 
-    }
-  },
+  computeTextAlgin() {
+    return this.mini ? "text-sm-right" : "text-sm-center";
+  }
 
-  methods: {
+  computeAvatarSize() {
+    return this.mini ? "48" : "96";
+  }
 
-  },
+  showAvatar() {
+    return this.avatar !== null && this.avatar.src;
+  }
 
+  showBottomNav() {
+    return this.mini === false && this.bottomNav;
+  }
 
-};
+  showTopNav() {
+    return this.mini === false && this.topNav;
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

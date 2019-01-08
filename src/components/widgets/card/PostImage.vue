@@ -1,7 +1,7 @@
 <template>
   <v-card>
 
-    <v-card-media src="/static/nature/n3.jpeg" class="white--text">
+    <v-img src="/static/nature/n3.jpeg" class="white--text">
     <v-card-text>
  
     <v-divider></v-divider>
@@ -17,14 +17,9 @@
   </v-card>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
-
-
-};
+@Component({})
+export default class PostImage extends Vue {}
 </script>
-
-<style>
-
-</style>

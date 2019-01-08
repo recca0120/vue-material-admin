@@ -2,14 +2,14 @@
   <v-container fluid fill-height class="pa-0 ma-0 white" id="profile">
     <v-layout column class="pa-0 ma-0">
       <v-card class="elevation-0">
-        <v-card-media height="380" src="/static/bg/4.jpg">
+        <v-img height="380" src="/static/bg/4.jpg">
           <v-layout column align-center justify-center>
             <v-avatar size="200" class="mx-5">
               <img :src="user.avatar" :alt="user.name">
             </v-avatar>
             <h1 class="white--text">{{user.name}}</h1>
           </v-layout>
-        </v-card-media>
+        </v-img>
         <v-card-text class="pa-0">
           <v-layout row wrap class="grey lighten-4 pa-3">
             <v-flex xs4>
@@ -45,7 +45,7 @@
               Activity 
             </v-tab>
             <v-tabs-items v-model="selectedTab">
-              <v-tab-item id="tab-1">
+              <v-tab-item value="tab-1">
                 <v-card flat>
                   <v-card-text>
                     <v-list two-line class="pa-0">
@@ -97,7 +97,7 @@
                   </v-card-text>
                 </v-card>
               </v-tab-item>
-              <v-tab-item id="tab-2">
+              <v-tab-item value="tab-2">
                 <v-card flat>
                   <v-card-text>
 
@@ -112,25 +112,23 @@
   </v-container>     
 </template>
 
-<script>
-import { getUserById } from '@/api/user';
-export default {
-  data () {
-    return {
-      chat: null,
-      selectedTab: null,
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { getUserById } from "@/api/user";
+
+@Component
+export default class ChatContactProfile extends Vue {
+  chat: string | null = null;
+  selectedTab: string | null = null;
+
+  get user() {
+    let Origin = {
+      name: "Chat",
+      avatar: ""
     };
-  },
-  computed: {
-   
-    user () {
-      let Origin = {
-        name: 'Chat',
-        avatar: '',
-      };
-      let user = getUserById(this.$route.params.uuid);
-      return Object.assign(Origin, user);
-    }    
-  },
-};
+    let user = getUserById(this.$route.params.uuid);
+
+    return Object.assign(Origin, user);
+  }
+}
 </script>

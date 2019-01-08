@@ -51,11 +51,11 @@
         </v-flex>        
         <v-flex lg4 sm12>
           <v-card>
-            <v-card-media src="/static/bg/8.jpg" height="250">
+            <v-img src="/static/bg/8.jpg" height="250">
               <h2 class="white--text pa-3">
                 Card with image
               </h2>
-            </v-card-media>
+            </v-img>
             <v-card-text>
               <div>
                 {{cardText}}
@@ -69,11 +69,11 @@
         </v-flex>
         <v-flex lg4 sm12>
           <v-card>
-            <v-card-media src="/static/nature/n3.jpeg" height="250">
+            <v-img src="/static/nature/n3.jpeg" height="250">
               <h2 class="white--text pa-3">
                 Card with image
               </h2>
-            </v-card-media>
+            </v-img>
             <v-card-text>
               <v-avatar size="64px" class="right mt-56">
                 <img src="/static/avatar/man_2.jpg" alt="">
@@ -90,11 +90,11 @@
         </v-flex>
         <v-flex lg4 sm12>
           <v-card>
-            <v-card-media src="/static/nature/n4.jpeg" height="250">
+            <v-img src="/static/nature/n4.jpeg" height="250">
               <h2 class="white--text pa-3">
                 Card with image
               </h2>
-            </v-card-media>
+            </v-img>
             <v-card-text>
               <v-btn icon fab color="red" dark class="right mt-45">
                 <v-icon>favorite</v-icon>
@@ -162,24 +162,22 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      show: true,
-      cardText: 'Hey there, I am a very simple card. I am good at containing small bits of information. I am quite convenient because I require little markup to use effectively.'
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class Cards extends Vue {
+  show = true;
+  cardText =
+    "Hey there, I am a very simple card. I am good at containing small bits of information. I am quite convenient because I require little markup to use effectively.";
+}
 </script>
+
 <style lang="stylus" scoped>
   .mt-45
     margin-top: -45px

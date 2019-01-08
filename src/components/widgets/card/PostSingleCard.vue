@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-media src="/static/nature/n3.jpeg" :height="imageHeight" class="white--text">
+    <v-img src="/static/nature/n3.jpeg" :height="imageHeight" class="white--text">
       <v-layout row justify-space-between class="ma-0">
         <v-flex xs2>
           <v-icon color="white">favorite</v-icon>
@@ -9,7 +9,7 @@
           <v-icon color="white">share</v-icon>
         </v-flex>
       </v-layout>
-    </v-card-media>
+    </v-img>
     <v-card-text>
       <div class="post--item">
         <div class="post--title">
@@ -56,33 +56,28 @@
   </v-card>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
 
-  props: {
-    featuredImage: { type: String },
-    imageHeight: { type: [String, Number], default: '350' },
-    author: { type: String },
-    title: { type: String },
-    desc: { type: String },
-    createdAt: { type: String }
-  },
+@Component
+export default class PostListCard extends Vue {
+  @Prop() featuredImage!: string;
+  @Prop({ default: 350 }) imageHeight!: number | string;
+  @Prop() author!: string;
+  @Prop() title!: string;
+  @Prop() desc!: string;
+  @Prop() createdAt!: string;
 
-  methods: {
-    handleThumb () {
-      // implement your own method here
-    },
-    handleComment () {
-      // implement your own method here
-    },
-    handleFavorite () {
-      // implement your own method here
-    },
-  }  
+  handleThumb() {
+    // implement your own method here
+  }
 
-};
+  handleComment() {
+    // implement your own method here
+  }
+
+  handleFavorite() {
+    // implement your own method here
+  }
+}
 </script>
-
-<style>
-
-</style>

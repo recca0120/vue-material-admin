@@ -42,27 +42,30 @@
   </v-app>
 </template>
 
-<script>
-import API from '@/api';
-import ChatMenu from './ChatMenu';
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-export default {
+<script lang="ts">
+import API from "@/api";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import ChatMenu from "./ChatMenu.vue";
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component({
   components: {
     VuePerfectScrollbar,
     ChatMenu
-  },
-  data: () => ({
-    menus: API.getChatMenu,
-  }),
-  computed: {
-    hideBottomNav () {
-      return this.$route.params.uuid !== undefined && this.$route.name === 'ChatMessaging';
-    },
-  },
-  methods: {
-    handleClick () {
-      this.$router.go(-1);
-    }
   }
-};
+})
+export default class ChatLayout extends Vue {
+  menus = API.getChatMenu;
+
+  get hideBottomNav() {
+    return (
+      this.$route.params.uuid !== undefined &&
+      this.$route.name === "ChatMessaging"
+    );
+  }
+
+  handleClick() {
+    this.$router.go(-1);
+  }
+}
 </script>

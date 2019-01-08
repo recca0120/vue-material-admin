@@ -62,20 +62,14 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
-  components: {
-    VWidget,
-  },
-  data () {
-    return {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
 
-    };
-  },
-  computed: {
-  },  
-  methods: {
+@Component({
+  components: {
+    VWidget
   }
-};
+})
+export default class Badge extends Vue {}
 </script>

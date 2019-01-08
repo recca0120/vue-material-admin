@@ -236,7 +236,7 @@
             </div>
           </v-widget>
           <v-card class="mt-3">
-            <v-card-media src="/static/bg/15.jpg" height="300px">
+            <v-img src="/static/bg/15.jpg" height="300px">
               <v-layout column class="media">
                 <v-card-title>
                   <v-btn dark icon>
@@ -255,7 +255,7 @@
                   <div class="display-1 pl-5 pt-5">Ali Conners</div>
                 </v-card-title>
               </v-layout>
-            </v-card-media>
+            </v-img>
             <v-list two-line>
               <v-list-tile href="">
                 <v-list-tile-action>
@@ -314,109 +314,145 @@
   </div>
 </template>
 
-<script>
-import { getUser } from '@/api/user';
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { getUser } from "@/api/user";
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      notifications: false,
-      sound: false,
-      video: false,
-      widgets: true,
-      invites: false,
-      folders: [
-        { icon: 'folder', iconClass: 'grey lighten-1 white--text', title: 'Photos', subtitle: 'Jan 9, 2014' },
-        { icon: 'folder', iconClass: 'grey lighten-1 white--text', title: 'Recipes', subtitle: 'Jan 17, 2014' },
-        { icon: 'folder', iconClass: 'grey lighten-1 white--text', title: 'Work', subtitle: 'Jan 28, 2014' }
-      ],
-      files: [
-        { icon: 'assignment', iconClass: 'blue white--text', title: 'Vacation itinerary', subtitle: 'Jan 20, 2014' },
-        { icon: 'call_to_action', iconClass: 'amber white--text', title: 'Kitchen remodel', subtitle: 'Jan 10, 2014' }
-      ],
-      topics: [
-        {
-          action: 'local_activity',
-          title: 'Attractions',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'restaurant',
-          title: 'Dining',
-          active: true,
-          items: [
-            { title: 'Breakfast & brunch' },
-            { title: 'New American' },
-            { title: 'Sushi' }
-          ]
-        },
-        {
-          action: 'school',
-          title: 'Education',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'directions_run',
-          title: 'Family',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'healing',
-          title: 'Health',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'content_cut',
-          title: 'Office',
-          items: [
-            { title: 'List Item' }
-          ]
-        },
-        {
-          action: 'local_offer',
-          title: 'Promotions',
-          items: [
-            { title: 'List Item' }
-          ]
-        }
-      ],
-      chats: [
-        { header: 'Today' },
-        { avatar: 'https://randomuser.me/api/portraits/men/1.jpg', title: 'Brunch this weekend?', subtitle: "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?" },
-        { divider: true, inset: true },
-        { avatar: 'https://randomuser.me/api/portraits/men/2.jpg', title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>', subtitle: "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend." },
-        { divider: true, inset: true },
-        { avatar: 'https://randomuser.me/api/portraits/men/3.jpg', title: 'Oui oui', subtitle: "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?" },
-        { divider: true, inset: true },
-        { avatar: 'https://randomuser.me/api/portraits/men/4.jpg', title: 'Birthday gift', subtitle: "<span class='text--primary'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?" },
-        { divider: true, inset: true },
-        { avatar: 'https://randomuser.me/api/portraits/men/5.jpg', title: 'Recipe to try', subtitle: "<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos." }
-      ]
-    };
-  },
-  computed: {
-    users () {
-      return getUser(3);
-    },
-    allUsers () {
-      return getUser();
-    }
-  },
-  methods: {
-    handleClick (e) {
-      return false;
-    }
   }
-};
+})
+export default class Lists extends Vue {
+  notifications = false;
+  sound = false;
+  video = false;
+  widgets = true;
+  invites = false;
+  folders = [
+    {
+      icon: "folder",
+      iconClass: "grey lighten-1 white--text",
+      title: "Photos",
+      subtitle: "Jan 9, 2014"
+    },
+    {
+      icon: "folder",
+      iconClass: "grey lighten-1 white--text",
+      title: "Recipes",
+      subtitle: "Jan 17, 2014"
+    },
+    {
+      icon: "folder",
+      iconClass: "grey lighten-1 white--text",
+      title: "Work",
+      subtitle: "Jan 28, 2014"
+    }
+  ];
+  files = [
+    {
+      icon: "assignment",
+      iconClass: "blue white--text",
+      title: "Vacation itinerary",
+      subtitle: "Jan 20, 2014"
+    },
+    {
+      icon: "call_to_action",
+      iconClass: "amber white--text",
+      title: "Kitchen remodel",
+      subtitle: "Jan 10, 2014"
+    }
+  ];
+
+  topics = [
+    {
+      action: "local_activity",
+      title: "Attractions",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "restaurant",
+      title: "Dining",
+      active: true,
+      items: [
+        { title: "Breakfast & brunch" },
+        { title: "New American" },
+        { title: "Sushi" }
+      ]
+    },
+    {
+      action: "school",
+      title: "Education",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "directions_run",
+      title: "Family",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "healing",
+      title: "Health",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "content_cut",
+      title: "Office",
+      items: [{ title: "List Item" }]
+    },
+    {
+      action: "local_offer",
+      title: "Promotions",
+      items: [{ title: "List Item" }]
+    }
+  ];
+  chats = [
+    { header: "Today" },
+    {
+      avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+      title: "Brunch this weekend?",
+      subtitle:
+        "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+    },
+    { divider: true, inset: true },
+    {
+      avatar: "https://randomuser.me/api/portraits/men/2.jpg",
+      title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
+      subtitle:
+        "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend."
+    },
+    { divider: true, inset: true },
+    {
+      avatar: "https://randomuser.me/api/portraits/men/3.jpg",
+      title: "Oui oui",
+      subtitle:
+        "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?"
+    },
+    { divider: true, inset: true },
+    {
+      avatar: "https://randomuser.me/api/portraits/men/4.jpg",
+      title: "Birthday gift",
+      subtitle:
+        "<span class='text--primary'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?"
+    },
+    { divider: true, inset: true },
+    {
+      avatar: "https://randomuser.me/api/portraits/men/5.jpg",
+      title: "Recipe to try",
+      subtitle:
+        "<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos."
+    }
+  ];
+
+  get users() {
+    return getUser(3);
+  }
+  get allUsers() {
+    return getUser();
+  }
+  handleClick() {
+    return false;
+  }
+}
 </script>

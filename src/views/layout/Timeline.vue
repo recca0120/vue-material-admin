@@ -58,11 +58,11 @@
                 <li class="timeline-block">
                   <div class="timeline-content">
                   <v-card>
-                    <v-card-media
+                    <v-img
                       src="/static/bg/5.jpg"
                       height="200px"
                     >
-                    </v-card-media>
+                    </v-img>
                     <v-card-title primary-title>
                       <div>
                         <div class="headline">Top western road trips</div>
@@ -107,27 +107,21 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-import API from '@/api';
-import VCircle from '@/components/circle/VCircle.js';
-export default {
+<script lang="ts">
+import API from "@/api";
+import VCircle from "@/components/circle/VCircle";
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget,
-    VCircle,
-  },
-  data () {
-    return {
-    };
-  },
-  computed: {
-    activity () {
-      return API.getActivity();
-    }
-  },  
-
-  methods: {
+    VCircle
   }
-};
+})
+export default class Timeline extends Vue {
+  get activity() {
+    return API.getActivity();
+  }
+}
 </script>
-

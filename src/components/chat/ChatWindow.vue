@@ -53,46 +53,41 @@
     </v-card-actions>
   </v-card>
 </template>
-<script>
-import { getChatById } from '@/api/chat';
-import { getUserById } from '@/api/user';
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-export default {
+
+<script lang="ts">
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { getChatById } from "@/api/chat";
+import { getUserById } from "@/api/user";
+
+@Component({
   components: {
     VuePerfectScrollbar
-  },
-  props: {
-    uuid: {
-      type: String,
-      default: '',
-    },
-    height: {
-      type: String,
-      default: null,
-    }
-  },
-  computed: {
-    chat () {
-      let chatOrigin = {
-        title: 'Chat',
-        users: [],
-        messages: [] 
-      };
-      let chat = getChatById(this.$route.params.uuid);
-      return Object.assign(chatOrigin, chat);
-    },
-    computeHeight () {
-      return {
-        height: this.height || ''
-      };
-    }
-  },
+  }
+})
+export default class ChatWindow extends Vue {
+  @Prop({ default: "" }) uuid!: string;
+  @Prop({ default: null }) height!: string | null;
 
-  methods: {
-    getAvatar (uid) {
-      return getUserById(uid).avatar;
-    }
-  }  
-};
+  get chat() {
+    let chatOrigin = {
+      title: "Chat",
+      users: [],
+      messages: []
+    };
+    let chat = getChatById(this.$route.params.uuid);
+
+    return Object.assign(chatOrigin, chat);
+  }
+
+  get computeHeight() {
+    return {
+      height: this.height || ""
+    };
+  }
+
+  getAvatar(uid: string) {
+    return getUserById(uid).avatar;
+  }
+}
 </script>
-

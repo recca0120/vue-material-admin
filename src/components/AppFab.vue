@@ -6,28 +6,36 @@
   </v-fab-transition>
 </template>
 
-<script>
-export default {
-  name: 'app-fab',
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
-  data: () => ({
-    fab: false
-  }),
+@Component
+export default class AppFab extends Vue {
+  fab = false;
 
-  methods: {
-    onScroll () {
-      if (typeof window === 'undefined') return;
-
-      const top = window.pageYOffset ||
-        document.documentElement.offsetTop ||
-        0;
-
-      this.fab = top > 300;
-    },
-    toTop () {
-      this.$router.push({ hash: '' });
-      this.$vuetify.goTo(0);
+  onScroll() {
+    if (typeof window === "undefined") {
+      return;
     }
+
+    this.fab = this.getTop() > 300;
   }
-};
+
+  toTop() {
+    this.$router.push({ hash: "" });
+    this.$vuetify.goTo(0);
+  }
+
+  private getTop() {
+    if (window.pageXOffset) {
+      return window.pageXOffset || 0;
+    }
+
+    if (window.document && window.document.documentElement) {
+      return window.document.documentElement.offsetTop || 0;
+    }
+
+    return 0;
+  }
+}
 </script>

@@ -12,7 +12,7 @@
       <v-text-field
         flat
         solo-inverted
-        prepend-icon="search"
+        prepend-inner-icon="search"
         label="What are you looking for?"
         class="hidden-sm-and-down"
         >
@@ -87,101 +87,103 @@
   </v-app>
 </template>
 
-<script>
-import { MailMenu } from '@/api/mail';
-import Compose from './Compose';
-export default {
+<script lang="ts">
+import Compose from "./Compose.vue";
+import { MailMenu } from "@/api/mail";
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     Compose
-  },
-  props: {
-    source: String
-  },
-  data: () => ({
-    selected: [2],
-    dialog: null,
-    drawer: null,
-    replayDialog: null,
-    menus: MailMenu,
-    items: [
-      {
-        icon: 'account_circle',
-        href: '#',
-        title: 'Profile',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        icon: 'settings',
-        href: '#',
-        title: 'Settings',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        icon: 'fullscreen_exit',
-        href: '#',
-        title: 'Logout',
-        click: (e) => {
-          console.log(e);
-        }
+  }
+})
+export default class Layout extends Vue {
+  @Prop() source!: string;
+  selected = [2];
+  dialog: boolean | null = null;
+  drawer: boolean | null = null;
+  replayDialog: boolean | null = null;
+  menus = MailMenu;
+  items = [
+    {
+      icon: "account_circle",
+      href: "#",
+      title: "Profile",
+      click: (e: any) => {
+        console.log(e);
       }
-    ],
-    mailActions: [
-      {
-        href: '#',
-        title: 'Delete',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        href: 'Mark as read',
-        title: 'Mark as read',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        href: 'Spam',
-        title: 'Spam',
-        click: (e) => {
-          console.log(e);
-        }
+    },
+    {
+      icon: "settings",
+      href: "#",
+      title: "Settings",
+      click: (e: any) => {
+        console.log(e);
       }
-    ]
-  }),
-
-  created () {
-    this.$on('MAIL_REPLY_DIALOG_CLOSE', () => {
-      this.replayDialog = false;
-    });
-    window.AppMail = this;
-  },
-  methods: {
-    handleClick (e) {
-      console.log(e);
     },
-    goBack () {
-      this.$router.go(-1);
-    },
-    toggleDrawer () {
-      this.drawer = (this.drawer) ? false : true;
-    },
-    toggle (index) {
-      const i = this.selected.indexOf(index);
-      if (i > -1) {
-        this.selected.splice(i, 1);
-      } else {
-        this.selected.push(index);
+    {
+      icon: "fullscreen_exit",
+      href: "#",
+      title: "Logout",
+      click: (e: any) => {
+        console.log(e);
       }
     }
+  ];
+  mailActions = [
+    {
+      href: "#",
+      title: "Delete",
+      click: (e: any) => {
+        console.log(e);
+      }
+    },
+    {
+      href: "Mark as read",
+      title: "Mark as read",
+      click: (e: any) => {
+        console.log(e);
+      }
+    },
+    {
+      href: "Spam",
+      title: "Spam",
+      click: (e: any) => {
+        console.log(e);
+      }
+    }
+  ];
+  handleClick(e: any) {
+    console.log(e);
   }
-};
+  goBack() {
+    this.$router.go(-1);
+  }
+  toggleDrawer() {
+    this.drawer = this.drawer ? false : true;
+  }
+  toggle(index: number) {
+    const i = this.selected.indexOf(index);
+    if (i > -1) {
+      this.selected.splice(i, 1);
+    } else {
+      this.selected.push(index);
+    }
+  }
+  protected created() {
+    this.$on("MAIL_REPLY_DIALOG_CLOSE", () => {
+      this.replayDialog = false;
+    });
+    (window as any).AppMail = this;
+  }
+}
 </script>
-<style lang="stylus">
 
+<style lang="stylus" scoped>
+.hidden-sm-and-down
+  >>>.v-input__prepend-inner
+    margin-right: 12px;
 
+  >>>.v-input__slot
+    margin-bottom: 0
 </style>

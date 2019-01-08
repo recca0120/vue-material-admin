@@ -56,51 +56,45 @@
     </v-snackbar>    
   </div>
 </template>
-<script>
-import AppDrawer from '@/components/AppDrawer';
-import AppToolbar from '@/components/AppToolbar';
-import AppFab from '@/components/AppFab';
-import PageHeader from '@/components/PageHeader';
-import ThemeSettings from '@/components/ThemeSettings';
-import AppEvents from  './event';
-export default {
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import AppDrawer from "@/components/AppDrawer.vue";
+import AppToolbar from "@/components/AppToolbar.vue";
+import AppFab from "@/components/AppFab.vue";
+import PageHeader from "@/components/PageHeader.vue";
+import ThemeSettings from "@/components/ThemeSettings.vue";
+import AppEvents from "./app-event";
+
+@Component({
   components: {
     AppDrawer,
     AppToolbar,
     AppFab,
     PageHeader,
     ThemeSettings
-  },
-  data: () => ({
-    expanded: true,
-    rightDrawer: false,
-    snackbar: {
-      show: false,
-      text: '',
-      color: '',
-    }
-  }),
+  }
+})
+export default class App extends mixins(AppEvents) {
+  expanded = true;
+  rightDrawer = false;
+  snackbar = {
+    show: false,
+    text: "",
+    color: ""
+  };
 
-  computed: {
+  protected created() {
+    (window as any).getApp = this;
+  }
 
-  },
-
-  created () {
-    AppEvents.forEach(item => {
-      this.$on(item.name, item.callback);
-    });
-    window.getApp = this;
-  },
-  methods: {
-    openThemeSettings () {
-      this.$vuetify.goTo(0);
-      this.rightDrawer = (!this.rightDrawer);
-    }
-  },
-
-};
+  openThemeSettings() {
+    this.$vuetify.goTo(0);
+    this.rightDrawer = !this.rightDrawer;
+  }
+}
 </script>
-
 
 <style lang="stylus" scoped>
   .setting-fab 

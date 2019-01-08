@@ -16,23 +16,18 @@
   </div>
 </template>
 
-<script>
-import ProfileCard from '@/components/widgets/card/ProfileCard';
-import MenuCard from '@/components/widgets/card/MenuCard';
-import SettingCard from '@/components/widgets/card/SettingCard';
-export default {
+<script lang="ts">
+import ProfileCard from "@/components/widgets/card/ProfileCard.vue";
+import MenuCard from "@/components/widgets/card/MenuCard.vue";
+import SettingCard from "@/components/widgets/card/SettingCard.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     ProfileCard,
     MenuCard,
     SettingCard
-  },
-  data () {
-    return {
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class Widget extends Vue {}
 </script>

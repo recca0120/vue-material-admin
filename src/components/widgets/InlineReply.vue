@@ -36,12 +36,13 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    toggle_exclusive: 2,
-    title: 'Hi,\nI just wanted to check in and see if you had any plans the upcoming weekend. We are thinking of heading up to Napa', 
-    
-  })
-};
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class InlineReply extends Vue {
+  toggle_exclusive = 2;
+  title =
+    "Hi,\nI just wanted to check in and see if you had any plans the upcoming weekend. We are thinking of heading up to Napa";
+}
 </script>

@@ -51,26 +51,26 @@
         </v-flex>
         <v-flex xs12>
           <v-divider></v-divider>
-          <v-text-field
+          <v-textarea
             label="Message"
             v-model="title"
             counter
             max="120"
             full-width
-            multi-line
             single-line
-          ></v-text-field>
+          ></v-textarea>
         </v-flex>             
       </v-layout>
     </v-container>
   </v-card>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    title: 'Hi,\nI just wanted to check in and see if you had any plans the upcoming weekend. We are thinking of heading up to Napa', 
-    
-  })
-};
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class Compose extends Vue {
+  title =
+    "Hi,\nI just wanted to check in and see if you had any plans the upcoming weekend. We are thinking of heading up to Napa";
+}
 </script>

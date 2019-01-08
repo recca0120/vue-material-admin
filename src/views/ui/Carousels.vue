@@ -26,33 +26,29 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      items: [
-        {
-          src: '/static/nature/n1.jpeg'
-        },
-        {
-          src: '/static/nature/n2.jpeg'
-        },
-        {
-          src: '/static/nature/n3.jpeg'
-        },
-        {
-          src: '/static/nature/n4.jpeg'
-        }
-      ]      
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class Carousels extends Vue {
+  items = [
+    {
+      src: "/static/nature/n1.jpeg"
+    },
+    {
+      src: "/static/nature/n2.jpeg"
+    },
+    {
+      src: "/static/nature/n3.jpeg"
+    },
+    {
+      src: "/static/nature/n4.jpeg"
+    }
+  ];
+}
 </script>

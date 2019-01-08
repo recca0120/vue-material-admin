@@ -41,34 +41,31 @@
   </v-card>
 </template>
 
-<script>
-import { Projects } from '@/api/project';
-export default {
-  data () {
-    return {
-      headers: [
-        {
-          text: '',
-          align: 'center',
-          sortable: false,
-          value: 'avatar'
-        },
-        {
-          text: 'Name',
-          align: 'left',
-          value: 'name'
-        },
-        { text: 'Deadline', value: 'deadline' },
-        { text: 'Progress', value: 'progress' },
-        { text: 'Action', value: 'action', align: 'right' },
+<script lang="ts">
+import { Projects } from "@/api/project";
+import { Component, Vue } from "vue-property-decorator";
 
-      ],
-    };
-  },
-  computed: {
-    projects () {
-      return Projects;
-    }
+@Component
+export default class PlainTable extends Vue {
+  headers = [
+    {
+      text: "",
+      align: "center",
+      sortable: false,
+      value: "avatar"
+    },
+    {
+      text: "Name",
+      align: "left",
+      value: "name"
+    },
+    { text: "Deadline", value: "deadline" },
+    { text: "Progress", value: "progress" },
+    { text: "Action", value: "action", align: "right" }
+  ];
+
+  get projects() {
+    return Projects;
   }
-};
+}
 </script>

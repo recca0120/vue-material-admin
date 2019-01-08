@@ -64,18 +64,13 @@
     </v-card>
   </v-container>
 </div>
-
 </template>
 
-<script>
-export default {
-  components: {},
-  data () {
-    return {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
-    };
-  }
-};
+@Component
+export default class Typography extends Vue {}
 </script>
 
 <style lang="stylus">

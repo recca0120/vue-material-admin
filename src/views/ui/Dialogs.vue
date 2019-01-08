@@ -43,13 +43,12 @@
                           ></v-select>
                         </v-flex>
                         <v-flex xs12 sm6>
-                          <v-select
+                          <v-autocomplete
                             label="Interests"
                             multiple
-                            autocomplete
                             chips
                             :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                          ></v-select>
+                          ></v-autocomplete>
                         </v-flex>
                       </v-layout>
                     </v-container>
@@ -177,32 +176,28 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      basic: {
-        dialog: false
-      },
-      fullscreen: {
-        dialog: false,
-        notifications: false,
-        sound: true,
-        widgets: false        
-      },
-      scrollable: {
-        name: '',
-        dialog: false        
-      }
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class Dialogs extends Vue {
+  basic = {
+    dialog: false
+  };
+  fullscreen = {
+    dialog: false,
+    notifications: false,
+    sound: true,
+    widgets: false
+  };
+  scrollable = {
+    name: "",
+    dialog: false
+  };
+}
 </script>

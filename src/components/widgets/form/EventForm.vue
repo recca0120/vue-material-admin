@@ -125,9 +125,9 @@
             </v-menu>
           </v-flex> 
           <v-flex lg12 sm12>
-            <v-text-field textarea label="Description">
+            <v-textarea outline label="Description">
 
-            </v-text-field>
+            </v-textarea>
           </v-flex>                              
           <v-spacer></v-spacer>
         </v-layout>        
@@ -140,26 +140,26 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    title: null,
-    valid: true,
-    date: null,
-    startDateMenu: false,
-    startDate: null,
-    startTimeMenu: false,
-    startTime: null,
-    endDateMenu: false,
-    endDate: null,
-    endTimeMenu: false,
-    endTime: null,
-    modal: false    
-  }),
-  methods: {
-    closeDialog () {
-      this.$parent.isActive = false;
-    }
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class EventForm extends Vue {
+  title = null;
+  valid = true;
+  date = null;
+  startDateMenu = false;
+  startDate = null;
+  startTimeMenu = false;
+  startTime = null;
+  endDateMenu = false;
+  endDate = null;
+  endTimeMenu = false;
+  endTime = null;
+  modal = false;
+
+  closeDialog() {
+    (this.$parent as any).isActive = false;
   }
-};
+}
 </script>

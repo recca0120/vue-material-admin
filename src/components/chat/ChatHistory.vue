@@ -1,7 +1,7 @@
 <template>
   <div class="chat-history">
     <v-toolbar dense class="chat-history-toolbar">
-      <v-text-field flat solo full-width clearable prepend-icon="search" label="Search"></v-text-field>
+      <v-text-field flat solo full-width clearable prepend-inner-icon="search" label="Search"></v-text-field>
     </v-toolbar>  
     <vue-perfect-scrollbar class="chat-history--scrollbar">
       <v-divider></v-divider>             
@@ -31,46 +31,63 @@
   </div>
 </template>
 
-<script>
-import { Groups } from '@/api/chat';
-import { getUserById } from '@/api/user';
-import VCircle from '@/components/circle/VCircle';
-import Util from '@/util';
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-export default {
+<script lang="ts">
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import VCircle from "@/components/circle/VCircle";
+import Util from "@/util";
+import { Component, Vue } from "vue-property-decorator";
+import { Groups } from "@/api/chat";
+import { getUserById } from "@/api/user";
+
+@Component({
   components: {
     VuePerfectScrollbar,
     VCircle
-  },
+  }
+})
+export default class ChatHistory extends Vue {
+  chats = Groups;
 
-  data: () => ({
-    chats: Groups,
-  }),
+  chatRoute(id: string) {
+    return "/chat/messaging/" + id;
+  }
 
-  methods: {
-    chatRoute (id) {
-      return '/chat/messaging/' + id;
-    },
-    firstLetter (title) {
-      return title.charAt(0);
-    },
-    formatChatTime (s) {
-      return new Date(s).toLocaleDateString();
-    },
-    computeTitle (item) {
-      let username = (item.users.length === 1) ? getUserById(item.users[0]).username : '';
-      return item.users.length === 1 ? username : item.title;
-    },
-    randomAvatarColor (item) {
-      return item.users.length === 1 
-        ? ''
-        : Util.randomElement(['blue', 'indigo', 'success', 'error', 'pink']);
-    },
+  firstLetter(title: string) {
+    return title.charAt(0);
+  }
 
-    chatStatusColor (item) {
-      return Util.randomElement(['blue', 'indigo', 'success', 'error', 'pink']);
-    }
-  }  
-};
+  formatChatTime(s: string) {
+    return new Date(s).toLocaleDateString();
+  }
+
+  computeTitle(item: any) {
+    let username =
+      item.users.length === 1 ? getUserById(item.users[0]).username : "";
+
+    return item.users.length === 1 ? username : item.title;
+  }
+
+  randomAvatarColor(item: any) {
+    return item.users.length === 1
+      ? ""
+      : Util.randomElement(["blue", "indigo", "success", "error", "pink"]);
+  }
+
+  chatStatusColor(item: any) {
+    return Util.randomElement(["blue", "indigo", "success", "error", "pink"]);
+  }
+}
 </script>
 
+<style lang="stylus" scoped>
+  .chat-history-toolbar
+    >>>.v-toolbar__content
+      padding: 0 !important;
+
+    >>>.v-input__prepend-inner
+      margin-right: 12px;
+
+    >>>.v-input__slot
+      margin-bottom: 0;
+      
+</style>

@@ -100,10 +100,10 @@
           </v-widget>
           <v-widget title="Complex usage" class="mt-3">
             <div slot="widget-content">
-              <v-select
+              <v-combobox
                 label="Your favorite hobbies"
                 chips
-                tags
+                multiple
                 solo
                 prepend-icon="filter_list"
                 append-icon=""
@@ -120,7 +120,7 @@
                     <span>(interest)</span>
                   </v-chip>
                 </template>
-              </v-select>
+              </v-combobox>
             </div>
           </v-widget>            
         </v-flex>
@@ -129,26 +129,23 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      chips: ['Programming', 'Watching', 'Sleeping'],
-      chip1: true,
-      chip2: true,
-    };
-  },
-  computed: {
-  },  
-  methods: {
-    remove (item) {
-      this.chips.splice(this.chips.indexOf(item), 1);
-      this.chips = [...this.chips];
-    }
   }
-};
+})
+export default class Chip extends Vue {
+  chips = ["Programming", "Watching", "Sleeping"];
+  chip1 = true;
+  chip2 = true;
+
+  remove(item: string) {
+    this.chips.splice(this.chips.indexOf(item), 1);
+    this.chips = [...this.chips];
+  }
+}
 </script>

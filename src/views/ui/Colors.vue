@@ -23,55 +23,57 @@
   </v-container>
 </template>
 
-<script>
-import colors from 'vuetify/es5/util/colors';
-import Util from '@/util';
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+import colors from "vuetify/es5/util/colors";
+import Util from "@/util";
 
-export default {
-  data: () => ({
-    colors,
-    search: ''
-  }),
-
-  computed: {
-    computedColors () {
-      const colors = {};
-      const search = this.search.toLowerCase();
-
-      Object.keys(this.colors).forEach(key => {
-        const kebabKey = Util.kebab(key).toLowerCase();
-
-        if (kebabKey.indexOf(search) > -1) {
-          colors[kebabKey] = this.colors[key];
-        }
-      });
-
-      return colors;
-    }
-  },
-
-  methods: {
-    endStr (str) {
-      return str[str.length - 1];
-    },
-    convertToClass (str) {
-      const end = this.endStr(str);
-      const sub = str.substr(0, str.length - 1);
-
-      if (isNaN(parseInt(end, 10))) return str;
-
-      return `${sub}-${end}`;
-    },
-    getColorClass (key) {
-      if (['white', 'transparent'].includes(key) ||
-        key.indexOf('light') > -1 ||
-        key.indexOf('accent') > -1
-      ) return 'black--text';
-
-      return 'white--text';
-    }
+@Component({
+  components: {
+    VWidget
   }
-};
+})
+export default class Colors extends Vue {
+  colors = colors;
+  search = "";
+
+  get computedColors() {
+    const colors: any = {};
+    const search = this.search.toLowerCase();
+
+    Object.entries(this.colors).forEach(([key, value]) => {
+      const kebabKey = Util.kebab(key).toLowerCase();
+      if (kebabKey.indexOf(search) > -1) {
+        colors[kebabKey] = value;
+      }
+    });
+
+    return colors;
+  }
+
+  endStr(str: string) {
+    return str[str.length - 1];
+  }
+  convertToClass(str: string) {
+    const end = this.endStr(str);
+    const sub = str.substr(0, str.length - 1);
+
+    if (isNaN(parseInt(end, 10))) return str;
+
+    return `${sub}-${end}`;
+  }
+  getColorClass(key: string) {
+    if (
+      ["white", "transparent"].includes(key) ||
+      key.indexOf("light") > -1 ||
+      key.indexOf("accent") > -1
+    )
+      return "black--text";
+
+    return "white--text";
+  }
+}
 </script>
 
 <style lang="stylus">

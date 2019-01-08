@@ -5,13 +5,13 @@
     dark
     app
     >
-    <v-toolbar-title class="ml-0 pl-3">
+    <v-toolbar-title class="ml-0">
       <v-toolbar-side-icon @click.stop="handleDrawerToggle"></v-toolbar-side-icon>
     </v-toolbar-title>
       <v-text-field
         flat
         solo-inverted
-        prepend-icon="search"
+        prepend-inner-icon="search"
         label="Search"
         class="hidden-sm-and-down"
         >
@@ -21,7 +21,7 @@
         Hire Me
       </v-btn>      
       <v-btn icon href="https://github.com/tookit/vue-material-admin">
-        <v-icon>fa fa-github</v-icon>
+        <v-icon medium>fa fa-github</v-icon>
       </v-btn>
       <v-btn icon @click="handleFullScreen()">
         <v-icon>fullscreen</v-icon>
@@ -54,54 +54,66 @@
       </v-menu>
   </v-toolbar>
 </template>
-<script>
-import NotificationList from '@/components/widgets/list/NotificationList';
-import Util from '@/util';
-export default {
-  name: 'app-toolbar',
+
+<script lang="ts">
+import NotificationList from "@/components/widgets/list/NotificationList.vue";
+import Util from "@/util";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     NotificationList
-  },
-  data: () => ({
-    items: [
-      {
-        icon: 'account_circle',
-        href: '#',
-        title: 'Profile',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        icon: 'settings',
-        href: '#',
-        title: 'Settings',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        icon: 'fullscreen_exit',
-        href: '#',
-        title: 'Logout',
-        click: (e) => {
-          window.getApp.$emit('APP_LOGOUT');
-        }
-      }
-    ],
-  }),
-  computed: {
-    toolbarColor () {
-      return this.$vuetify.options.extra.mainNav;
-    }
-  },
-  methods: {
-    handleDrawerToggle () {
-      window.getApp.$emit('APP_DRAWER_TOGGLED');
-    },
-    handleFullScreen () {
-      Util.toggleFullScreen();
-    }
   }
-};
+})
+export default class AppToolbar extends Vue {
+  items = [
+    {
+      icon: "account_circle",
+      href: "#",
+      title: "Profile",
+      click: (e: Event) => {
+        console.log(e);
+      }
+    },
+    {
+      icon: "settings",
+      href: "#",
+      title: "Settings",
+      click: (e: Event) => {
+        console.log(e);
+      }
+    },
+    {
+      icon: "fullscreen_exit",
+      href: "#",
+      title: "Logout",
+      click: (e: Event) => {
+        (window as any).getApp.$emit("APP_LOGOUT");
+      }
+    }
+  ];
+
+  get toolbarColor() {
+    const options = this.$vuetify.options as any;
+
+    return options.extra.mainNav;
+  }
+
+  handleDrawerToggle() {
+    (window as any).getApp.$emit("APP_DRAWER_TOGGLED");
+  }
+
+  handleFullScreen() {
+    Util.toggleFullScreen();
+  }
+}
 </script>
+
+<style lang="stylus" scoped>
+  .hidden-sm-and-down
+    >>>.v-input__prepend-inner
+      margin-right: 12px;
+
+    >>>.v-input__slot
+      margin-bottom: 0
+</style>

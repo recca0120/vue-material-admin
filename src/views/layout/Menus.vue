@@ -60,34 +60,31 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' }
-      ],      
-      nudge: {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-      }  
-    };
-  },
-  computed: {
-  },  
-  methods: {
-    handleClick (e) {
-      e.preventDefault();
-    }
   }
-};
+})
+export default class Menus extends Vue {
+  items = [
+    { title: "Click Me" },
+    { title: "Click Me" },
+    { title: "Click Me" },
+    { title: "Click Me 2" }
+  ];
+  nudge = {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
+  };
+
+  handleClick(e: Event) {
+    e.preventDefault();
+  }
+}
 </script>

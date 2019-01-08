@@ -82,34 +82,37 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      alert: {
-        showSuccess: true,
-        showError: true,
-        showWarnning: true,
-        showInfo: true,
-      }
-    };
-  },
-  computed: {
-    showReset: function () {
-      return (this.alert.showSuccess === this.alert.showError === this.alert.showWarnning === this.alert.showInfo === false);
-    }
-  },  
-  methods: {
-    handleReset () {
-      this.alert.showError = true;
-      this.alert.showSuccess = true;
-      this.alert.showWarnning = true;
-      this.alert.showInfo = true;
-    }
   }
-};
+})
+export default class Alert extends Vue {
+  alert = {
+    showSuccess: true,
+    showError: true,
+    showWarnning: true,
+    showInfo: true
+  };
+
+  get showReset() {
+    return (
+      (((this.alert.showSuccess === this.alert.showError) ===
+        this.alert.showWarnning) ===
+        this.alert.showInfo) ===
+      false
+    );
+  }
+
+  handleReset() {
+    this.alert.showError = true;
+    this.alert.showSuccess = true;
+    this.alert.showWarnning = true;
+    this.alert.showInfo = true;
+  }
+}
 </script>

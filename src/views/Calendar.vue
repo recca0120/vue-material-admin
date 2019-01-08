@@ -12,49 +12,47 @@
   </v-container>
 </template>
 
-<script>
-import FullCalendar from 'vue-fullcalendar';
-import EventForm from '../components/widgets/form/EventForm';
 
-export default {
+<script lang="ts">
+import FullCalendar from "vue-fullcalendar";
+import EventForm from "../components/widgets/form/EventForm.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     FullCalendar,
     EventForm
-  },
-  data: () => ({
-    size: 'sm',
-    dialog: false,
-    dialogData: null,
-    fcEvents: [
-      {
-        title: 'Sunny Out of Office',
-        start: '2018-03-30',
-        end: '2018-04-02'  
-      }
-    
-    ],
-
-  }),
-
-
-  
-  methods: {
-    handleDayClick (day, e) {
-      this.dialog = true;
-    },
-    handleEventClick (e, event, pos) {
-      this.dialog = true;
-      this.$refs.eForm.title = e.title;
-      this.$refs.eForm.startDate = e.start;
-      this.$refs.eForm.endDate = e.end;
-
+  }
+})
+export default class Calendar extends Vue {
+  e = "sm";
+  dialog = false;
+  dialogData = null;
+  fcEvents = [
+    {
+      title: "Sunny Out of Office",
+      start: "2018-03-30",
+      end: "2018-04-02"
     }
-  },
-};
+  ];
+
+  handleDayClick() {
+    this.dialog = true;
+  }
+  handleEventClick(e: any) {
+    this.dialog = true;
+    const form = this.$refs.eForm as any;
+    form.title = e.title;
+    form.startDate = e.start;
+    form.endDate = e.end;
+  }
+}
 </script>
+
+
 <style scoped>
 .fullwidth {
-  width: 100%!important;
-  max-width: 100%;;
+  width: 100% !important;
+  max-width: 100%;
 }
 </style>

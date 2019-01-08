@@ -90,13 +90,12 @@
                     <v-subheader>Multiline </v-subheader>
                   </v-flex>
                   <v-flex xs8>
-                    <v-text-field
+                    <v-textarea
                       name="input-5"
                       label="Label Text"
                       value="Input text"
                       color="teal"
-                      multi-line
-                    ></v-text-field>
+                    ></v-textarea>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
@@ -206,27 +205,24 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import VWidget from "@/components/VWidget.vue";
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      email: '',
-      rules: {
-        required: (value) => !!value || 'Required.',
-        email: (value) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || 'Invalid e-mail.';
-        }    
-      }  
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class TextFields extends Vue {
+  email = "";
+  rules = {
+    required: (value: string) => !!value || "Required.",
+    email: (value: string) => {
+      const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      return pattern.test(value) || "Invalid e-mail.";
+    }
+  };
+}
 </script>

@@ -45,63 +45,59 @@
     </div>
   </div>
 </div>
-
 </template>
 
-<script>
-export default {
-  data: () => ({
-    size: 'lg',
-    view: 'grid',
-    imageMime: [
-      'image/jpeg',
-      'image/png',
-      'image/svg+xml'
-    ],
-    mediaMenu: [
-      { 
-        icon: 'photo',
-        title: 'Images',
-        to: { path: '/media/image' },
-      },
-      { 
-        icon: 'videocam',
-        title: 'Video',
-        to: { path: '/media/video' },
-      },
-      { 
-        icon: 'volume_down',
-        title: 'Audio',
-        to: { path: '/media/audio' },
-      },
-      { 
-        icon: 'insert_drive_file',
-        title: 'Document',
-        to: { path: '/media/doc' },
-      },
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
 
-    ],
-  }),
-  computed: {
-    files () {
-      return this.$store.state.file.items;      
-    }
-  },
-
-  created () {
-    this.$store.dispatch('listFiles');
-  },
-
-  methods: {
-    isImage (file) {
-      return this.imageMime.includes(file.fileType);
+@Component
+export default class Layout extends Vue {
+  size = "lg";
+  view = "grid";
+  imageMime = ["image/jpeg", "image/png", "image/svg+xml"];
+  mediaMenu = [
+    {
+      icon: "photo",
+      title: "Images",
+      to: { path: "/media/image" }
     },
-    mimeIcons (file) {
-      return this.imageMime.includes(file.fileType) ? 'image' : 'insert_drive_file';
+    {
+      icon: "videocam",
+      title: "Video",
+      to: { path: "/media/video" }
+    },
+    {
+      icon: "volume_down",
+      title: "Audio",
+      to: { path: "/media/audio" }
+    },
+    {
+      icon: "insert_drive_file",
+      title: "Document",
+      to: { path: "/media/doc" }
     }
-  },  
-};
+  ];
+
+  get files() {
+    return this.$store.state.file.items;
+  }
+
+  isImage(file: any) {
+    return this.imageMime.includes(file.fileType);
+  }
+
+  mimeIcons(file: any) {
+    return this.imageMime.includes(file.fileType)
+      ? "image"
+      : "insert_drive_file";
+  }
+
+  protected created() {
+    this.$store.dispatch("listFiles");
+  }
+}
 </script>
+
 <style lang="stylus" scoped>
 .media-menu {
   min-width:260px;

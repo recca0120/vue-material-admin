@@ -345,80 +345,75 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue, Watch } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      text: 'center',
-      icon: 'justify',
-      toggle_none: null,
-      toggle_one: 0,
-      toggle_exclusive: 2,
-      toggle_multiple: [0, 1, 2],      
-      loader: null,
-      loading: false,
-      loading2: false,
-      loading3: false,
-      loading4: false      
-    };
-  },
-  computed: {
-  },  
-  watch: {
-    loader () {
-      const l = this.loader;
-      this[l] = !this[l];
-
-      setTimeout(() => {
-        this[l] = false;
-      }, 3000);
-      this.loader = null;
-    }
-  },  
-  methods: {
   }
-};
+})
+export default class Button extends Vue {
+  text = "center";
+  icon = "justify";
+  toggle_none = null;
+  toggle_one = 0;
+  toggle_exclusive = 2;
+  toggle_multiple = [0, 1, 2];
+  loader = null;
+  loading = false;
+  loading2 = false;
+  loading3 = false;
+  loading4 = false;
+
+  @Watch("loader")
+  onLoaderChanged() {
+    // const l = this.loader;
+    // this[l] = !this[l];
+    // setTimeout(() => {
+    //   this[l] = false;
+    // }, 3000);
+    // this.loader = null;
+  }
+}
 </script>
 
 <style>
-  .custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-moz-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
   }
-  @-webkit-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-o-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
   }
-  @keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>

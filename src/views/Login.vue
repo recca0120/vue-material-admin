@@ -36,27 +36,26 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    loading: false,
-    model: {
-      username: 'admin@isockde.com',
-      password: 'password'
-    }
-  }),
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
-  methods: {
-    login () {
-      this.loading = true;
-      setTimeout(() => {
-        this.$router.push('/dashboard');
-      }, 1000);
-    }
+@Component
+export default class Login extends Vue {
+  loading = false;
+  model = {
+    username: "admin@isockde.com",
+    password: "password"
+  };
+
+  login() {
+    this.loading = true;
+    setTimeout(() => {
+      this.$router.push("/dashboard");
+    }, 1000);
   }
-
-};
+}
 </script>
+
 <style scoped lang="css">
   #login {
     height: 50%;

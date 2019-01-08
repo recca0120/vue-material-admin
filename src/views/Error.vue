@@ -17,15 +17,17 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  methods: {
-    goHome () {
-      this.$router.push({ path: '/' });
-    }
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class Error extends Vue {
+  goHome() {
+    this.$router.push({ path: "/" });
   }
-};
+}
 </script>
+
 <style scoped lang="css">
   h1 {
     font-size: 150px;

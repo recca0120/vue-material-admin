@@ -61,15 +61,14 @@
     </v-list>
   </v-card>
 </template>
-<script>
-export default {
-  data () {
-    return {
-      notifications: false,
-      sound: false,
-      video: false,
-      invites: false
-    };
-  }
-};
+<script<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class SettingCard extends Vue {
+  notifications = false;
+  sound = false;
+  video = false;
+  invites = false;
+}
 </script>

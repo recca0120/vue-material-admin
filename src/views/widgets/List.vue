@@ -22,35 +22,31 @@
   </div>
 </template>
 
-<script>
-import { getPost } from '@/api/post';
-import MessageList from '@/components/widgets/list/MessageList';
-import NotificationList from '@/components/widgets/list/NotificationList';
-import PlainTable from '@/components/widgets/list/PlainTable';
-import PlainTableOrder from '@/components/widgets/list/PlainTableOrder';
-import PostListCard from '@/components/widgets/card/PostListCard';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { getPost } from "@/api/post";
+import MessageList from "@/components/widgets/list/MessageList.vue";
+import NotificationList from "@/components/widgets/list/NotificationList.vue";
+import PlainTable from "@/components/widgets/list/PlainTable.vue";
+import PlainTableOrder from "@/components/widgets/list/PlainTableOrder.vue";
+import PostListCard from "@/components/widgets/card/PostListCard.vue";
+
+@Component({
   components: {
     PostListCard,
     MessageList,
     NotificationList,
     PlainTable,
     PlainTableOrder
-  },
-  data () {
-    return {
-    };
-  },
-  computed: {
-    posts () {
-      return getPost();
-    }
-  },
-  methods: {
-    handleClick: (e) => {
-      console.log(e);
-    }
-  },
-  
-};
+  }
+})
+export default class List extends Vue {
+  get posts() {
+    return getPost();
+  }
+
+  handleClick(e: Event) {
+    console.log(e);
+  }
+}
 </script>

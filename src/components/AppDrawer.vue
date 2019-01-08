@@ -68,59 +68,61 @@
     </vue-perfect-scrollbar>        
   </v-navigation-drawer>
 </template>
-<script>
-import menu from '@/api/menu';
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-export default {
-  name: 'app-drawer',
+
+<script lang="ts">
+import menu, { MenuItem } from "@/api/menu";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
-    VuePerfectScrollbar,
-  },
-  props: {
-    expanded: {
-      type: Boolean,
-      default: true
-    },
-  },
-  data: () => ({
-    mini: false,
-    drawer: true,
-    menus: menu,
-    scrollSettings: {
-      maxScrollbarLength: 160
-    }    
-  }),
-  computed: {
-    computeGroupActive () {
-      return true;
-    },
-    computeLogo () {
-      return '/static/m.png';
-    },
-
-    sideToolbarColor () {
-      return this.$vuetify.options.extra.sideNav;
-    }    
-  },
-  created () {
-    window.getApp.$on('APP_DRAWER_TOGGLED', () => {
-      this.drawer = (!this.drawer);
-    });
-  },
-  
-
-  methods: {
-    genChildTarget (item, subItem) {
-      if (subItem.href) return;
-      if (subItem.component) {
-        return {
-          name: subItem.component,
-        };
-      }
-      return { name: `${item.group}/${(subItem.name)}` };
-    },
+    VuePerfectScrollbar
   }
-};
+})
+export default class AppDrawer extends Vue {
+  @Prop({ default: true }) expanded!: boolean;
+
+  mini = false;
+  drawer = true;
+  menus = menu;
+  scrollSettings = {
+    maxScrollbarLength: 160
+  };
+
+  get computeGroupActive() {
+    return true;
+  }
+
+  get computeLogo() {
+    return "/static/m.png";
+  }
+
+  get sideToolbarColor() {
+    return (this.$vuetify.options as any).extra.sideNav;
+  }
+
+  genChildTarget(item: MenuItem, subItem: MenuItem) {
+    if (subItem.href) {
+      return;
+    }
+
+    if (subItem.component) {
+      return {
+        name: subItem.component
+      };
+    }
+
+    return {
+      name: `${item.group}/${subItem.name}`
+    };
+  }
+
+  protected created() {
+    (window as any).getApp.$on("APP_DRAWER_TOGGLED", () => {
+      this.drawer = !this.drawer;
+    });
+  }
+}
 </script>
 
 

@@ -105,33 +105,32 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      interval: {},
-      value: 0
-    };
-  },
-  computed: {
-  },  
-  beforeDestroy () {
+  }
+})
+export default class Progress extends Vue {
+  interval!: number;
+  value: number = 0;
+
+  protected beforeDestroy() {
     clearInterval(this.interval);
-  },
-  mounted () {
+  }
+
+  protected mounted() {
     this.interval = setInterval(() => {
       if (this.value === 100) {
-        return (this.value === 0);
+        this.value = 0;
+
+        return;
       }
       this.value += 10;
     }, 1000);
-  },  
-  methods: {
-  },
-  
-};
+  }
+}
 </script>

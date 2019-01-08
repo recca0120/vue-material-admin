@@ -72,20 +72,16 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      show: false,
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class Tooltip extends Vue {
+  show = false;
+}
 </script>

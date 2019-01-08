@@ -47,13 +47,12 @@
                   </div>
                   <v-card>
                     <v-card-text class="pa-0">
-                      <v-text-field
+                      <v-textarea
                         class=""
                         counter
                         placeholder="Your reply here"
                         full-width
-                        multi-line
-                      ></v-text-field>              
+                      ></v-textarea>              
                     </v-card-text>
                     <v-toolbar dense flat>
                       <v-btn icon>
@@ -80,56 +79,57 @@
     </v-layout>
   </v-container>  
 </template>
-<script>
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-import { getMailById } from '@/api/mail';
-export default {
+
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import { getMailById } from "@/api/mail";
+
+@Component({
   components: {
-    VuePerfectScrollbar,
-  },
-  data: () => ({
-    selected: [2],
-    mailActions: [
-      {
-        href: '#',
-        title: 'Delete',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        href: 'Mark as read',
-        title: 'Mark as read',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        href: 'Spam',
-        title: 'Spam',
-        click: (e) => {
-          console.log(e);
-        }
-      }
-    ]
-  }),
-  computed: {
-    mail () {
-      return getMailById(this.$route.params.uuid);
-    },
-
-  },
-
-  created () {
-    window.AppMail = this;
-  },
-  methods: {
-    computeMailPath (id) {
-      return '/mail/0/' + id;
-    },
-    formatDate (s) {
-      return new Date(s).toLocaleDateString();
-    }    
+    VuePerfectScrollbar
   }
-};
+})
+export default class Relay extends Vue {
+  selected = [2];
+  mailActions = [
+    {
+      href: "#",
+      title: "Delete",
+      click: (e: any) => {
+        console.log(e);
+      }
+    },
+    {
+      href: "Mark as read",
+      title: "Mark as read",
+      click: (e: any) => {
+        console.log(e);
+      }
+    },
+    {
+      href: "Spam",
+      title: "Spam",
+      click: (e: any) => {
+        console.log(e);
+      }
+    }
+  ];
+
+  get mail() {
+    return getMailById(this.$route.params.uuid);
+  }
+
+  computeMailPath(id: string) {
+    return "/mail/0/" + id;
+  }
+
+  formatDate(s: string) {
+    return new Date(s).toLocaleDateString();
+  }
+
+  protected created() {
+    (window as any).AppMail = this;
+  }
+}
 </script>

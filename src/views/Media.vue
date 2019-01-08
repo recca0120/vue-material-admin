@@ -36,9 +36,9 @@
                 :key="'folder'+ index"
               >
                 <v-card flat tile>
-                  <v-card-media height="150px">
+                  <v-responsive height="150px">
                     <v-icon size="135" class="mx-auto" color="indigo">folder</v-icon>  
-                  </v-card-media>
+                  </v-responsive>
                   <v-divider></v-divider>
                   <v-card-title>
                     {{item.name}}
@@ -55,13 +55,13 @@
               >
                 <a @click="showDetail(item)" class="d-flex">
                   <v-card flat tile>
-                    <v-card-media
+                    <v-responsive
                       height="150px"
                       width="150px"
                     >
                       <img :src="item.path" alt="" v-if="isImage(item)">
                       <v-icon class="mx-auto" size="135" v-else>insert_drive_file</v-icon>  
-                    </v-card-media>
+                    </v-responsive>
                     <v-divider></v-divider>
                     <v-card-title>
                       {{item.fileName}}
@@ -98,80 +98,76 @@
   </div>
 </template>
 
-<script>
-import Bytes from 'bytes';
-import { getFileMenu, getFile } from '@/api/file';
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-export default {
+<script lang="ts">
+import Bytes from "bytes";
+import { getFileMenu, getFile } from "@/api/file";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+@Component({
   components: {
     VuePerfectScrollbar
-  },  
-  props: {
-    type: {
-      type: String,
-      default: 'image'
+  }
+})
+export default class Media extends Vue {
+  @Prop({ default: "image" }) type!: string;
+  size = "lg";
+  view = "grid";
+  selectedFile = {
+    path: "/static/icon/empty_file.svg"
+  };
+  imageMime = ["image/jpeg", "image/png", "image/svg+xml"];
+  folders = [
+    {
+      name: "bg",
+      lastModified: "2018-03-03"
     },
-  },
-  data: () => ({
-    size: 'lg',
-    view: 'grid',
-    selectedFile: {
-      path: '/static/icon/empty_file.svg'
+    {
+      name: "cards",
+      lastModified: "2018-03-03"
     },
-    imageMime: [
-      'image/jpeg',
-      'image/png',
-      'image/svg+xml'
-    ],
-
-    folders: [
-      {
-        name: 'bg',
-        lastModified: '2018-03-03'
-      },
-      {
-        name: 'cards',
-        lastModified: '2018-03-03'
-      },
-      {
-        name: 'avatar',
-        lastModified: '2018-03-03'
-      }
-    ],
-  }),
-  computed: {
-    mediaMenu () {
-      return getFileMenu;
-    },
-    files () {
-      return getFile();
+    {
+      name: "avatar",
+      lastModified: "2018-03-03"
     }
-  },
+  ];
 
+  get mediaMenu() {
+    return getFileMenu;
+  }
 
+  get files() {
+    return getFile();
+  }
 
-  methods: {
-    isImage (file) {
-      return this.imageMime.includes(file.fileType);
-    },
-    mimeIcons (file) {
-      return this.imageMime.includes(file.fileType) ? 'image' : 'insert_drive_file';
-    },
-    showDetail (file) {
-      this.selectedFile = file;
-    },
-    fileSize (number) {
-      return Bytes.format(number);
-    },
-    formateDate (string) {
-      return (string) ? new Date(string).toLocaleDateString() : '';
-    },
-    computeFileImage (file) {
-      return this.isImage(file) ? file.path : '/static/icon/file_empty.svg';
-    }
-  },  
-};
+  isImage(file: any) {
+    return this.imageMime.includes(file.fileType);
+  }
+
+  mimeIcons(file: any) {
+    return this.imageMime.includes(file.fileType)
+      ? "image"
+      : "insert_drive_file";
+  }
+
+  showDetail(file: any) {
+    this.selectedFile = file;
+  }
+
+  fileSize(number: number) {
+    return Bytes.format(number);
+  }
+
+  formateDate(str: string) {
+    return str ? new Date(str).toLocaleDateString() : "";
+  }
+
+  computeFileImage(file: any) {
+    return this.isImage(file) ? file.path : "/static/icon/file_empty.svg";
+  }
+}
 </script>
+
 <style lang="stylus" scoped>
 .media
   &-cotent--wrap

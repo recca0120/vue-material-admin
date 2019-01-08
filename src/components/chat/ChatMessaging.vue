@@ -24,25 +24,25 @@
     </template>
   </v-container>     
 </template>
-<script>
-import ChatHistory from './ChatHistory';
-import ChatWindow from './ChatWindow';
-export default {
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import ChatHistory from "./ChatHistory.vue";
+import ChatWindow from "./ChatWindow.vue";
+
+@Component({
   components: {
     ChatHistory,
     ChatWindow
-  },
-  data () {
-    return {
-    };
-  },
-  computed: {
-    showSidebar () {
-      return this.$route.params.uuid === undefined;
-    },
-    showWindow () {
-      return this.$route.params.uuid !== undefined;
-    },
-  },
-};
+  }
+})
+export default class ChatMessaging extends Vue {
+  get showSidebar() {
+    return this.$route.params.uuid === undefined;
+  }
+
+  get showWindow() {
+    return this.$route.params.uuid !== undefined;
+  }
+}
 </script>

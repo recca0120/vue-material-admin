@@ -29,20 +29,16 @@
   </div>
 </template>
 
-<script>
-import VWidget from '@/components/VWidget';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import VWidget from "@/components/VWidget.vue";
+
+@Component({
   components: {
     VWidget
-  },
-  data () {
-    return {
-      page: 1
-    };
-  },
-  computed: {
-  },  
-  methods: {
   }
-};
+})
+export default class Pagination extends Vue {
+  page = 1;
+}
 </script>

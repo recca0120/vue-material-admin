@@ -19,27 +19,24 @@
   </div>
 </template>
 
-<script>
-import MessageList from '@/components/widgets/list/MessageList';
-import NotificationList from '@/components/widgets/list/NotificationList';
-import PlainTable from '@/components/widgets/list/PlainTable';
-import PlainTableOrder from '@/components/widgets/list/PlainTableOrder';
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import MessageList from "@/components/widgets/list/MessageList.vue";
+import NotificationList from "@/components/widgets/list/NotificationList.vue";
+import PlainTable from "@/components/widgets/list/PlainTable.vue";
+import PlainTableOrder from "@/components/widgets/list/PlainTableOrder.vue";
+
+@Component({
   components: {
     MessageList,
     NotificationList,
     PlainTable,
     PlainTableOrder
-  },
-  data () {
-    return {
-    };
-  },
-  methods: {
-    handleClick: (e) => {
-      console.log(e);
-    }
-  },
-  
-};
+  }
+})
+export default class Post extends Vue {
+  handleClick(e: Event) {
+    console.log(e);
+  }
+}
 </script>

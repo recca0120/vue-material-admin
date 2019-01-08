@@ -26,18 +26,16 @@
     </v-card-text>
   </v-card>
 </template>
-<script>
-import messages from '@/api/message';
-export default {
+<script lang="ts">
+import messages from "@/api/message";
+import { Component, Vue } from "vue-property-decorator";
 
-  data: () => ({
-    items: messages
-  }),
-  methods: {
-    handleClick: (e) => {
-      console.log(e);
-    }
-  },
+@Component
+export default class MessageList extends Vue {
+  items = messages;
 
-};
+  handleClick(e: Event) {
+    console.log(e);
+  }
+}
 </script>
